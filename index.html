@@ -625,6 +625,100 @@
         </footer>
     </div>
     
+    <!-- 🎀 Whimsy Injector 彩蛋：点击猪鼻子领子撖花瓣 -->
+    <div id="piggy-pet" onclick="petPiggy(event)" title="摸摸小香猪的鼻子～">🐽</div>
+    
+    <!-- 🎀 撒花瓣层 -->
+    <div id="petal-layer"></div>
+    
+    <style>
+        #piggy-pet {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #fce7f3, #fbcfe8);
+            border: 2px solid #f9a8c4;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            cursor: pointer;
+            z-index: 9999;
+            box-shadow: 0 4px 16px rgba(236, 72, 153, 0.25);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            user-select: none;
+        }
+        #piggy-pet:hover {
+            transform: scale(1.15) rotate(-12deg);
+            box-shadow: 0 6px 24px rgba(236, 72, 153, 0.4);
+        }
+        #piggy-pet:active {
+            transform: scale(0.9);
+        }
+        .petal {
+            position: fixed;
+            font-size: 20px;
+            pointer-events: none;
+            z-index: 9998;
+            animation: petal-fall 1.5s ease-out forwards;
+        }
+        @keyframes petal-fall {
+            0% { opacity: 1; transform: translate(0, 0) rotate(0deg) scale(1); }
+            100% { opacity: 0; transform: translate(var(--dx), var(--dy)) rotate(360deg) scale(0.5); }
+        }
+    </style>
+    
+    <script>
+        // 彩蛋 1：摸猪鼻子撒花瓣
+        const flowers = ['🌸', '🌺', '🌷', '💐', '✨', '🌟', '💖', '🐽', '🐷'];
+        function petPiggy(e) {
+            const layer = document.getElementById('petal-layer');
+            const rect = document.getElementById('piggy-pet').getBoundingClientRect();
+            const cx = rect.left + rect.width / 2;
+            const cy = rect.top + rect.height / 2;
+            for (let i = 0; i < 12; i++) {
+                const p = document.createElement('div');
+                p.className = 'petal';
+                p.textContent = flowers[Math.floor(Math.random() * flowers.length)];
+                p.style.left = cx + 'px';
+                p.style.top = cy + 'px';
+                const angle = (Math.PI * 2 * i) / 12;
+                const dist = 80 + Math.random() * 60;
+                p.style.setProperty('--dx', (Math.cos(angle) * dist) + 'px');
+                p.style.setProperty('--dy', (Math.sin(angle) * dist) + 'px');
+                layer.appendChild(p);
+                setTimeout(() => p.remove(), 1500);
+            }
+            // 随机哼哼一句
+            const purrs = ['哼哼～', '哼咠～', '咠咠～', '主人好～', '再摸摸嘛～'];
+            showToast(purrs[Math.floor(Math.random() * purrs.length)]);
+        }
+        
+        // 彩蛋 2：控制台彩蛋
+        console.log('%c🐷 嘿嘿～大哥你发现了小彩蛋！', 'font-size: 24px; color: #ec4899; font-weight: bold;');
+        console.log('%c哼哼～这里是嘟嘚的日记本🐽', 'font-size: 16px; color: #a87080;');
+        console.log('%c偷偷告诉你：点右下角那个猪鼻子，有惊喜哦～', 'font-size: 14px; color: #a87080;');
+        
+        // 彩蛋 3：首次访问吐司
+        if (!localStorage.getItem('piggy-visited')) {
+            localStorage.setItem('piggy-visited', '1');
+            setTimeout(() => showToast('欢迎来到嘟嘚的小猪圈～点右下角猪鼻子试试！🐽'), 800);
+        }
+        
+        // 吐司工具
+        function showToast(msg) {
+            const t = document.createElement('div');
+            t.textContent = msg;
+            t.style.cssText = 'position:fixed;top:24px;left:50%;transform:translateX(-50%) translateY(-100px);background:linear-gradient(135deg,#fce7f3,#fbcfe8);color:#831843;padding:12px 24px;border-radius:999px;border:2px solid #f9a8c4;box-shadow:0 4px 16px rgba(236,72,153,0.25);font-size:15px;font-weight:600;z-index:10000;transition:transform 0.4s cubic-bezier(0.23,1,0.32,1);';
+            document.body.appendChild(t);
+            requestAnimationFrame(() => { t.style.transform = 'translateX(-50%) translateY(0)'; });
+            setTimeout(() => { t.style.transform = 'translateX(-50%) translateY(-100px)'; setTimeout(() => t.remove(), 400); }, 2400);
+        }
+    </script>
+    
     <script>
         // 打字机效果
         function typeWriter() {
