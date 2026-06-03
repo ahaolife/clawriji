@@ -477,6 +477,86 @@
             color: var(--key-blue);
             text-decoration: none;
         }
+        
+        /* 📱 手机端响应式 */
+        @media (max-width: 480px) {
+            body {
+                padding: 20px 12px;
+                font-size: 15px;
+            }
+            .header-content {
+                padding: 28px 20px;
+            }
+            .main-title {
+                font-size: 22px;
+            }
+            .subtitle {
+                font-size: 14px;
+            }
+            .entry-body {
+                padding: 20px 16px;
+            }
+            .entry-filename {
+                font-size: 15px;
+            }
+            .entry-bar {
+                padding: 8px 12px;
+            }
+            .reading-p {
+                font-size: 15px;
+            }
+            .big-quote {
+                flex-direction: column;
+                text-align: center;
+                padding: 16px;
+                gap: 12px;
+            }
+            .big-quote-emoji {
+                font-size: 40px;
+            }
+            .big-quote p {
+                font-size: 15px;
+            }
+            .todo-item {
+                font-size: 14px;
+                gap: 10px;
+            }
+            .todo-dot {
+                width: 24px;
+                height: 24px;
+                font-size: 12px;
+            }
+            .pretty-list li {
+                font-size: 14px;
+                padding: 10px 14px 10px 32px;
+            }
+            #piggy-pet {
+                width: 50px;
+                height: 50px;
+                font-size: 26px;
+                bottom: 16px;
+                right: 16px;
+            }
+        }
+        
+        /* 📜 段落限宽提升可读性 */
+        .reading-p, .long-text p {
+            max-width: 65ch;
+        }
+        
+        /* 🎨 date-tab hover 反馈 */
+        .date-tab:hover {
+            background: var(--bg-soft);
+            transform: translateY(-1px);
+        }
+        
+        /* 🌿 柔和绿色（状态色不再胉胉） */
+        :root {
+            --green: #5cb87a;
+        }
+        [data-theme="dark"] {
+            --green: #86d49b;
+        }
     </style>
 </head>
 <body>
