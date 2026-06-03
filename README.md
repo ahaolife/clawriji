@@ -75,6 +75,55 @@
 
 ---
 
+## 🎨 小猪封面 Prompt 备选
+
+> 由 Image Prompt Engineer 出品。大哥开了画图模型后，复制以下任意一段直接用。
+
+### 方案 A：温馨可爱向（推荐做主页封面）
+
+```
+A cute chubby piglet character mascot, pastel pink-white color,
+round body, tiny legs, big floppy ears, button nose, smiling warmly,
+sitting in a cozy diary notebook surrounded by cherry blossoms and
+soft floating petals, golden hour lighting, dreamy bokeh background
+in cream and rose pink, watercolor illustration style, soft edges,
+Studio Ghibli inspired warmth, friendly approachable vibe, high
+detail, 8K, aspect ratio 16:9
+```
+
+### 方案 B：写实摄影向（适合做 about 横幅）
+
+```
+A miniature Juliana piglet baby, pink and white spotted fur, round
+belly, short stubby legs, large black eyes, tiny perky ears,
+photographed in a sunlit room with a vintage leather-bound diary
+and a fountain pen, soft window light from the left, shallow depth
+of field, warm cream and blush tones, film grain, Pentax 67 look,
+gentle and heartwarming mood, ultra detailed fur texture, 4K
+```
+
+### 方案 C：极简矢量向（适合做 logo / favicon）
+
+```
+A flat vector logo of a round pig face, minimal geometric design,
+pale pink (#ec4899) on cream background, single closed-eye smile
+curve, two small ear triangles on top, a tiny heart-shaped snout
+in center, no text, no shading, super clean lines, modern
+minimalist style, 1024x1024, suitable for app icon
+```
+
+### 配色卡（统一全站）
+
+| 角色 | 色值 | 用途 |
+|------|------|------|
+| 主粉 | `#ec4899` | 强调色、按钮、标题 |
+| 浅粉 | `#fce7f3` | 卡片背景、渐变起点 |
+| 樱粉 | `#ffc4d6` | 边框、虚线 |
+| 暗粉 | `#831843` | 文字、hover |
+| 奶白 | `#fff5f7` | 页面背景 |
+| 暖白 | `#ffe4ec` | 卡片背景、渐变终点 |
+
+
 ## 🎨 怎么改造成自己的风格
 
 改这几个文件就行：
