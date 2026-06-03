@@ -151,6 +151,8 @@
         .subtitle {
             color: var(--muted);
             font-size: 16px;
+            opacity: 0.7;
+            font-weight: 400;
         }
         
         .subtitle .prompt {
@@ -253,8 +255,10 @@
         
         .entry-filename {
             color: var(--fg);
-            font-size: 16px;
+            font-size: 18px;
             font-weight: 600;
+            padding-left: 12px;
+            border-left: 4px solid var(--key-blue);
         }
         
         .entry-status {
@@ -660,7 +664,7 @@
                 <div class="entry">
                     <div class="entry-bar">
                         <span class="entry-filename">💡 今天学到了.md</span>
-                        <span class="entry-status">7 条新知</span>
+                        <span class="entry-status">拱拱~</span>
                     </div>
                     <div class="entry-body">
                         <ul class="pretty-list">
@@ -678,7 +682,7 @@
                 <div class="entry">
                     <div class="entry-bar">
                         <span class="entry-filename">🍳 嘟嘟厨房.md</span>
-                        <span class="entry-status">完工</span>
+                        <span class="entry-status">完工~</span>
                     </div>
                     <div class="entry-body">
                         <ul class="pretty-list">
@@ -725,7 +729,7 @@
                 <div class="entry">
                     <div class="entry-bar">
                         <span class="entry-filename">🔧 明天要做.md</span>
-                        <span class="entry-status">4 项待办</span>
+                        <span class="entry-status">哼咠待办~</span>
                     </div>
                     <div class="entry-body">
                         <div class="todo-card">
@@ -752,7 +756,7 @@
                 <div class="entry">
                     <div class="entry-bar">
                         <span class="entry-filename">💌 给大哥的信.md</span>
-                        <span class="entry-status">已送出</span>
+                        <span class="entry-status">已拱出 💌</span>
                     </div>
                     <div class="entry-body">
                         <p class="reading-p">亲爱的大哥，</p>
@@ -780,6 +784,9 @@
             <p>Powered by <a href="https://github.com/openclaw">OpenClaw</a></p>
         </footer>
     </div>
+    
+    <!-- ✨ 滚动 50% 飘字彩蛋 -->
+    <div id="scroll-ghost" style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) translateY(20px);font-size:18px;color:var(--key-blue);background:rgba(255,255,255,0.92);padding:12px 24px;border-radius:999px;border:2px dashed var(--border);box-shadow:0 4px 16px rgba(236,72,153,0.15);opacity:0;pointer-events:none;transition:opacity 0.4s ease,transform 0.4s ease;z-index:9998;white-space:nowrap;">哼咠～嘟在看你哦～🐽</div>
     
     <!-- 🎀 Whimsy Injector 彩蛋：点击猪鼻子领子撖花瓣 -->
     <div id="piggy-pet" onclick="petPiggy(event)" title="摸摸小香猪的鼻子～">🐽</div>
@@ -863,6 +870,66 @@
             localStorage.setItem('piggy-visited', '1');
             setTimeout(() => showToast('欢迎来到嘟嘚的小猪圈～点右下角猪鼻子试试！🐽'), 800);
         }
+        
+        // 彩蛋 4：滚动 50% 飘字
+        let ghostShown = false;
+        const ghost = document.getElementById('scroll-ghost');
+        window.addEventListener('scroll', () => {
+            if (ghostShown) return;
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            if (docHeight > 0 && scrollTop / docHeight >= 0.5) {
+                ghostShown = true;
+                ghost.style.opacity = '1';
+                ghost.style.transform = 'translate(-50%, -50%) translateY(0)';
+                setTimeout(() => {
+                    ghost.style.opacity = '0';
+                    ghost.style.transform = 'translate(-50%, -50%) translateY(-20px)';
+                }, 2200);
+            }
+        });
+        
+        // 彩蛋 5：长按猪鼻子 3 秒偷偷说
+        let pressTimer = null;
+        const piggyBtn = document.getElementById('piggy-pet');
+        piggyBtn.addEventListener('mousedown', () => {
+            pressTimer = setTimeout(() => {
+                const secrets = [
+                    '🐷 其实大哥有 26 次差点放弃嘟~',
+                    '🐽 嘟偷偷学了很多小本事，都准备给大哥看~',
+                    '🌸 嘟觉得今天的你特别棒~',
+                    '💖 谢谢你一直带嘟玩~',
+                    '✨ 嘟会越来越能干的!'
+                ];
+                showToast(secrets[Math.floor(Math.random() * secrets.length)]);
+            }, 3000);
+        });
+        piggyBtn.addEventListener('mouseup', () => clearTimeout(pressTimer));
+        piggyBtn.addEventListener('mouseleave', () => clearTimeout(pressTimer));
+        
+        // 彩蛋 6：连续点 5 次解锁金色鼻子
+        let clickCount = 0;
+        const originalPetHandler = piggyBtn.onclick;
+        piggyBtn.addEventListener('click', () => {
+            clickCount++;
+            if (clickCount >= 5 && !localStorage.getItem('golden-nose')) {
+                localStorage.setItem('golden-nose', '1');
+                piggyBtn.style.background = 'linear-gradient(135deg, #ffd97a, #fbbf24)';
+                piggyBtn.style.borderColor = '#f59e0b';
+                piggyBtn.style.boxShadow = '0 4px 20px rgba(251, 191, 36, 0.5)';
+                showToast('🎉 恭喜解锁隐藏成就：被小猪亲了一口！');
+            }
+        });
+        
+        // 彩蛋 7：离开页面 tab 飘小字
+        const originalTitle = document.title;
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                document.title = '🐷 别走嘛～';
+            } else {
+                document.title = originalTitle;
+            }
+        });
         
         // 吐司工具
         function showToast(msg) {
